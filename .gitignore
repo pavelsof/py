@@ -1,0 +1,8 @@
+# virtual env
+/venv
+
+# python temps
+*.pyc
+
+# editor temps
+*.swp
