@@ -1,6 +1,12 @@
 # virtual env
 /venv
 
+# python packaging
+/pydepman.egg-info
+/.eggs
+/build
+/dist
+
 # python temps
 *.pyc
 
