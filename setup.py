@@ -45,7 +45,7 @@ setup(
 
     entry_points = {
         'console_scripts': [
-            'py = py.cli:run'
+            'py = py.cli:main'
         ]
     },
 )
