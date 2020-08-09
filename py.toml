@@ -1,0 +1,9 @@
+venv = "venv"
+
+[dependencies]
+click = "7.1.2"
+click-default-group = "1.2.2"
+toml = "0.10.1"
+
+[dev-dependencies]
+twine = "3.2.0"

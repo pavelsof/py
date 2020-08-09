@@ -26,7 +26,13 @@ def run(script):
 
     This command makes explicitly activating the virtual environment obsolete.
     """
-    click.echo('running')
+    from py.env import env
+
+    cmd = ['python']
+    if script:
+        cmd.append(script)
+
+    env.run(cmd)
 
 
 @main.command(short_help='Search for a package.')

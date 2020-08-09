@@ -40,7 +40,11 @@ setup(
 
     packages=find_packages(),
 
-    install_requires=[],
+    install_requires=[
+        'click ~= 7.1',
+        'click-default-group ~= 1.2',
+        'toml ~= 0.10',
+    ],
     python_requires='>=3',
 
     entry_points = {
