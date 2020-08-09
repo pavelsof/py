@@ -1,6 +1,8 @@
 import click
 from click_default_group import DefaultGroup
 
+from py import __version__
+
 
 @click.group(
     cls=DefaultGroup,
@@ -8,6 +10,7 @@ from click_default_group import DefaultGroup
     default_if_no_args=True,
     context_settings={'help_option_names': ['-h', '--help']},
 )
+@click.version_option(__version__, '-V', '--version')
 def main():
     """
     A modern dependency manager for Python.
@@ -64,39 +67,15 @@ def deps(package):
     pass
 
 
-@main.command(short_help='Sync with requirements.txt.')
+@main.command(short_help='Sync the installed packages as per py.toml.')
 def sync():
     """
-    Install and uninstall packages as needed to match those specified in the
-    requirements.txt file.
-    """
-    pass
+    Install the dependencies (and their dependencies, all the way down)
+    specified in py.toml and uninstall those that are missing.
 
+    Write requirements.txt.
+    """
+    from py.env import env
 
-@main.command(short_help='Install a package.')
-@click.argument('package')
-def install(package):
-    """
-    Install a package, optionally with a version specified. The package is
-    installed in the virtual environment specified in the py.toml file.
-    """
-    pass
-
-
-@main.command(short_help='Upgrade a package.')
-@click.argument('package')
-def upgrade(package):
-    """
-    Upgrade a package, preferably with a version specified. By default the
-    package dependencies are also upgraded as necessary.
-    """
-    pass
-
-
-@main.command(short_help='Uninstall a package.')
-@click.argument('package')
-def uninstall(package):
-    """
-    Remove a package from the virtual environment specified in py.toml.
-    """
-    pass
+    for package, version in env.deps:
+        env.cmd(['pip', 'install', '{}=={}'.format(package, version)])
