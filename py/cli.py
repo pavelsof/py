@@ -24,9 +24,6 @@ def run(script):
     """
     Run python in the virtual environment specified in py.toml.
 
-    If there is no py.toml file or it does specify a virtual environment, run
-    with the shell's python executable.
-
     This command makes explicitly activating the virtual environment obsolete.
     """
     from py.env import env
@@ -36,6 +33,49 @@ def run(script):
         cmd.append(script)
 
     env.run(cmd)
+
+
+@main.command(short_help='Init a new project.')
+@click.option(
+    '-p', '--env-path', type=click.Path(exists=False), default='venv',
+    help='The directory to create the virtual environment in.'
+)
+def init(env_path):
+    """
+    Init a new project in the current directory. This involves two steps:
+
+    (1) Create a virtual environment in $PWD/venv (by default). Skip this step
+    if the command is called within an already existing virtual environment.
+
+    (2) Create a py.toml file in which venv points to the virtual environment
+    from step 1.
+
+    If the current directory already contains py.toml, abort with an error.
+    """
+    import os
+    import subprocess
+
+    config_file = os.path.join(os.path.normpath(os.getcwd()), 'py.toml')
+
+    if os.path.exists(config_file):
+        raise click.UsageError('There is already a py.toml in this directory.')
+
+    if 'VIRTUAL_ENV' in os.environ:
+        env_path = os.environ['VIRTUAL_ENV']
+    else:
+        subprocess.run(['python3', '-m', 'venv', env_path], env=os.environ)
+        click.echo('Created a virtual environment in {}'.format(env_path))
+
+    template_file = os.path.join(os.path.dirname(__file__), 'tpl/py.toml')
+    with open(template_file) as f:
+        config = f.read()
+
+    config = config.format(venv=env_path)
+
+    with open(config_file, 'w') as f:
+        f.write(config)
+
+    click.echo('Created py.toml')
 
 
 @main.command(short_help='Search for a package.')

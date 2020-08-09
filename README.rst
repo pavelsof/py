@@ -84,6 +84,9 @@ uninstall a package
 commands
 ========
 
+- ``py init``
+    Init a new project (a virtual environment and a py.toml file) in the current directory.
+
 - ``py [SCRIPT]``
     Run python in the virtual environment specified in py.toml. This command makes explicitly activating the virtual environment obsolete.
 

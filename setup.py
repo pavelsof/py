@@ -38,8 +38,6 @@ setup(
         'Tracker': 'https://github.com/pavelsof/py/issues',
     },
 
-    packages=find_packages(),
-
     install_requires=[
         'click ~= 7.1',
         'click-default-group ~= 1.2',
@@ -47,6 +45,13 @@ setup(
         'toml ~= 0.10',
     ],
     python_requires='>=3',
+
+    packages=find_packages(),
+    package_data={
+        'py': [
+            'tpl/py.toml',
+        ]
+    },
 
     entry_points = {
         'console_scripts': [

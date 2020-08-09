@@ -1,0 +1,5 @@
+venv = "{venv}"
+
+[dependencies]
+
+[dev-dependencies]
