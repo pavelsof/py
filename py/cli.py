@@ -94,7 +94,23 @@ def show(package):
     Show the details of a package. It does not matter whether the package is
     installed locally.
     """
-    pass
+    from py.http import fetch_package_info
+    try:
+        info = fetch_package_info(package)
+    except Exception as error:
+        click.echo(error)
+    else:
+        fields = [
+            ('Name', info['info']['name']),
+            ('Version', info['info']['version']),
+            ('Summary', info['info']['summary']),
+            ('Home-page', info['info']['home_page']),
+            ('Author', info['info']['author']),
+            ('Author-email', info['info']['author_email']),
+            ('License', info['info']['license']),
+        ]
+        for key, value in fields:
+            click.echo('{}: {}'.format(key, value))
 
 
 @main.command(short_help='Show the dependency tree of a package.')

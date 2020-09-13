@@ -18,3 +18,11 @@ class ConfigNotReadable(PyError):
     Custom exception to be raised when a py.toml file cannot be read or parsed.
     """
     pass
+
+
+class CheeseShopError(PyError):
+    """
+    Custom exception to be raised when there is a problem with fetching package
+    info from PyPI.
+    """
+    pass
