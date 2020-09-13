@@ -2,7 +2,7 @@ import json
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 
-from py.exc import CheeseShopError
+from pydepman.exc import CheeseShopError
 
 
 def fetch_package_info(package, version=None):

@@ -1,7 +1,7 @@
 import click
 from click_default_group import DefaultGroup
 
-from py import __version__
+from pydepman import __version__
 
 
 @click.group(
@@ -26,7 +26,7 @@ def run(script):
 
     This command makes explicitly activating the virtual environment obsolete.
     """
-    from py.env import env
+    from pydepman.env import env
 
     cmd = ['python']
     if script:
@@ -94,7 +94,7 @@ def show(package):
     Show the details of a package. It does not matter whether the package is
     installed locally.
     """
-    from py.http import fetch_package_info
+    from pydepman.http import fetch_package_info
     try:
         info = fetch_package_info(package)
     except Exception as error:
@@ -131,7 +131,7 @@ def sync():
 
     Write requirements.txt.
     """
-    from py.env import env
+    from pydepman.env import env
 
     for package, version in env.deps:
         env.cmd(['pip', 'install', '{}=={}'.format(package, version)])

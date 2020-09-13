@@ -3,7 +3,7 @@ import subprocess
 
 import toml
 
-from py.exc import ConfigNotFound, ConfigNotReadable
+from pydepman.exc import ConfigNotFound, ConfigNotReadable
 
 
 class Environment:

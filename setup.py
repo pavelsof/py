@@ -2,7 +2,7 @@ import os.path
 
 from setuptools import setup, find_packages
 
-from py import __version__
+from pydepman import __version__
 
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -48,14 +48,14 @@ setup(
 
     packages=find_packages(),
     package_data={
-        'py': [
+        'pydepman': [
             'tpl/py.toml',
         ]
     },
 
     entry_points = {
         'console_scripts': [
-            'py = py.cli:main'
+            'py = pydepman.cli:main'
         ]
     },
 )
